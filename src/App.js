@@ -3,6 +3,7 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 import './App.css';
 import Login from './component/login/login';
 import Registration from './component/login/registration';
+import LeafMap from "./component/map/map";
 
 class App extends Component {
     render() {
@@ -12,6 +13,7 @@ class App extends Component {
                     <Switch>
                         <Route path="/login" component={Login}/>
                         <Route path="/registration" component={Registration}/>
+                        <Route path="/map" component={LeafMap}/>
                     </Switch>
                 </BrowserRouter>
             </div>
