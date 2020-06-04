@@ -23,13 +23,8 @@ class PhotoUploader extends Component{
     };
 
     fileUploadHandler = async () => {
-        let token = localStorage.getItem("token");
-        await axios.post("http://localhost:8080/uploadMultipleFiles",
-            this.state.selectedFiles,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+        await axios.post("https://localhost:5001/api/ImageUpload",
+            this.state.selectedFiles,{
                 onUploadProgress: progressEvent => {
                     this.setState({ariaValue: Math.round(progressEvent.loaded/ progressEvent.total *100)})
                 }
