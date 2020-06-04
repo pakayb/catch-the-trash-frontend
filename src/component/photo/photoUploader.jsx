@@ -11,18 +11,14 @@ class PhotoUploader extends Component {
     }
 
     fileSelectedHandler = event => {
-        let files = event.target.files;
-        const formData = new FormData;
-        const names = [];
-        formData.append("files", files, files.name);
-        names.push(files.name);
-        this.setState({selectedFiles: formData});
-        this.setState({imgUris: names})
+        this.setState({selectedFiles: event.target.files[0]})
     };
 
     fileUploadHandler = async () => {
-        await axios.post("https://localhost:5001/api/ImageUpload",
-            this.state.selectedFiles, {
+        const fd = new FormData();
+        fd.append("files", this.state.selectedFiles)
+        await axios.post("https://localhost:5001/api/ImageUpload",fd
+           , {
                 onUploadProgress: progressEvent => {
                     this.setState({ariaValue: Math.round(progressEvent.loaded / progressEvent.total * 100)})
                 }
