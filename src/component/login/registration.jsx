@@ -35,18 +35,33 @@ class Registration extends Component{
 
     render(){
         return(
-            <div>
-                <span>Username</span>
-                <input type="text" value={this.state.username} onChange={this.usernameOnChange} name="username" />
-
-                <span>Password</span>
-                <input type="password" value={this.state.password} onChange={this.passwordOnChange} name="password" />
-
-                <span>E-mail</span>
-                <input type="email" value={this.state.email} name="email" onChange={this.emailOnChange} />
-
-                <button onClick={this.registration} >Registration</button>
+            <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "28rem"}}>
+                <div className="card">
+                    <div className="card-body">
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputEmail1">Email address</label>
+                                <input type="email" className="form-control" id="exampleInputEmail1"
+                                       aria-describedby="emailHelp" onChange={this.emailOnChange} value={this.state.email}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputPassword1">Username</label>
+                                <input type="text" className="form-control" id="exampleInputUsername" onChange={this.usernameOnChange} value={this.state.username}/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputPassword1">Password</label>
+                                <input type="password" className="form-control" id="exampleInputPassword1" onChange={this.passwordOnChange} value={this.state.password}/>
+                            </div>
+                            <div className="form-group form-check">
+                                <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+                                <label className="form-check-label" htmlFor="exampleCheck1">I read terms & conditions!</label>
+                            </div>
+                            <button type="submit" className="btn btn-dark">Registration</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+
         )
     }
 }
