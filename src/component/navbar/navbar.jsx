@@ -2,13 +2,14 @@ import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import {Redirect} from "react-router";
 
-class Navbar extends Component{
+class Navbar extends Component {
 
-
-
+    renderRedirect = () => {
+        return <Redirect to="/login"/>
+    };
 
     render() {
-        return(
+        return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a className="navbar-brand" href="#">CTT</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
@@ -19,7 +20,7 @@ class Navbar extends Component{
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Bejelentés</a>
+                            <a className="nav-link" href="/statement">Bejelentés</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">Bejelentett</a>
@@ -28,13 +29,14 @@ class Navbar extends Component{
                             <a className="nav-link" href="#">Szemétszedés</a>
                         </li>
                     </ul>
-                    <form className="form-inline my-2 my-lg-0">
-                            <button className="btn btn-outline-success my-2 my-sm-0">Login</button>
-                    </form>
+                    <span className="navbar-text">
+                    <a href="/login">Login</a>
+                    </span>
                 </div>
             </nav>
         )
     }
 
 }
+
 export default Navbar

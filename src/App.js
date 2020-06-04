@@ -7,19 +7,19 @@ import LeafMap from "./component/map/map";
 import Navbar from "./component/navbar/navbar";
 import PhotoUploader from "./component/photo/photoUploader";
 import 'bootstrap/dist/css/bootstrap.css';
+import StatementPage from "./component/pages/statementPage";
 
 class App extends Component {
     render() {
         return (
             <div>
                 <Navbar/>
-                    <div className="container-md">
+                    <div className="container-md" style={{marginTop: "30px"}}>
                     <BrowserRouter>
                         <Switch>
                             <Route path="/login" component={Login}/>
                             <Route path="/registration" component={Registration}/>
-                            <Route path="/map" component={LeafMap}/>
-                            <Route path="/uploader" component={PhotoUploader}/>
+                            <Route path="/statement" component={StatementPage}/>
                         </Switch>
                     </BrowserRouter>
                     </div>

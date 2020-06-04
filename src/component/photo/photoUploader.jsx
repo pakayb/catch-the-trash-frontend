@@ -6,7 +6,8 @@ class PhotoUploader extends Component{
 
     state = {
         selectedFiles: null,
-        imgUris: []
+        imgUris: [],
+        ariaValue: 0
     }
 
     fileSelectedHandler = event => {
@@ -29,6 +30,9 @@ class PhotoUploader extends Component{
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
+                onUploadProgress: progressEvent => {
+                    this.setState({ariaValue: Math.round(progressEvent.loaded/ progressEvent.total *100)})
+                }
             }
         ).then(resp => {
             console.log(resp);
@@ -37,19 +41,26 @@ class PhotoUploader extends Component{
     };
 
     render() {
-        return(
-            <div className="container">
-                <div className="form-group">
-                    <div>
+        return (
+            <div>
+                <form>
+                    <div className="form-group">
                         <label htmlFor="exampleFormControlFile1">Képek kiválasztása</label>
-                        <input type="file" className="form-control-file" id="exampleFormControlFile1" multiple
-                               onChange={this.fileSelectedHandler}/>
+                        <input type="file" className="form-control-file" id="exampleFormControlFile1" multiple onChange={this.fileSelectedHandler}/>
+                        <button className="btn btn-dark" onClick={this.fileUploadHandler}>Képek feltöltése</button>
                     </div>
-                    <button onClick={this.fileUploadHandler}>Képek feltöltése</button>
-                </div>
+                    <div className="progress">
+                        <div className="progress-bar bg-success" role="progressbar" style={{width: this.state.ariaValue+"%"}}
+                             aria-valuenow={this.state.ariaValue} aria-valuemin="0" aria-valuemax="100"/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="exampleFormControlTextarea1">Megjegyzés</label>
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="10"/>
+                    </div>
+                </form>
             </div>
-        )
+    )
     }
 
-}
-export default PhotoUploader;
+    }
+    export default PhotoUploader;

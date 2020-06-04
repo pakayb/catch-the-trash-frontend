@@ -17,17 +17,19 @@ class Login extends Component {
     };
 
     login = () => {
-        axios
-            .post("http://localhost:8080/login", {
+        axios.post(`http://localhost:8080/auth/signin`,
+            {
                 username: this.state.username,
-                password: this.state.password,
-            })
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((e) => {
-                console.log(e.message);
-            });
+                password: this.state.password
+            }
+        ).then(resp => {
+            console.log(resp.data);
+            localStorage.setItem("token", resp.data.token);
+            this.setState({redirect: true});
+        }).catch((e) => {
+            console.log(e.message)
+        })
+
     };
 
     render() {
@@ -37,22 +39,19 @@ class Login extends Component {
                     <div className="card-body">
                         <form>
                             <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input type="email" className="form-control" id="exampleInputEmail1"
-                                       aria-describedby="emailHelp"/>
-                                <small id="emailHelp" className="form-text text-muted">We'll never share your email with
-                                    anyone
-                                    else.</small>
+                                <label htmlFor="exampleInputEmail1">Email address/Username</label>
+                                <input type="text" className="form-control" id="exampleInputEmail1"
+                                       aria-describedby="emailHelp" onChange={this.usernameOnChange} value={this.state.username}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Password</label>
                                 <input type="password" className="form-control" id="exampleInputPassword1"/>
                             </div>
                             <div className="form-group form-check">
-                                <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                                <input type="checkbox" className="form-check-input" id="exampleCheck1" onChange={this.passwordOnChange} value={this.state.password}/>
+                                <label className="form-check-label" htmlFor="exampleCheck1">Stay logged in</label>
                             </div>
-                            <button type="submit" className="btn btn-dark">Login</button>
+                            <button className="btn btn-dark" onClick={this.login}>Login</button>
                         </form>
                     </div>
                     <div className="card-footer text-muted">
