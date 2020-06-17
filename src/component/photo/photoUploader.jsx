@@ -25,7 +25,6 @@ class PhotoUploader extends Component {
             }
         ).then(resp => {
             console.log(resp);
-            console.log(this.state.imgUris)
         })
     };
 
