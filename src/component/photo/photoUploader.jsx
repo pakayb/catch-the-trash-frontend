@@ -7,8 +7,13 @@ class PhotoUploader extends Component {
     state = {
         selectedFiles: null,
         imgUris: "",
-        ariaValue: 0
+        ariaValue: 0,
+        note: ""
     }
+
+    noteOnChange = event => {
+        this.setState({note: event.target.value})
+    };
 
     fileSelectedHandler = event => {
         this.setState({selectedFiles: event.target.files[0]})
@@ -28,6 +33,12 @@ class PhotoUploader extends Component {
         })
     };
 
+    sendNote = () => {
+        axios.post("https://localhost:5001/api/SaveNote", {note: this.state.note})
+            .then(resp => {console.log(resp)})
+            .catch(e => { console.log(e.message)});
+    }
+
     render() {
         return (
             <div>
@@ -45,13 +56,13 @@ class PhotoUploader extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleFormControlTextarea1">Megjegyzés</label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="10"/>
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="10" onChange={this.noteOnChange} value={this.state.note}/>
+                        <button className="btn btn-dark" onClick={this.sendNote}>Bejelentés elküldése</button>
                     </div>
                 </form>
             </div>
         )
     }
-
 }
 
 export default PhotoUploader;

@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import LeafMap from "../map/map";
 import PhotoUploader from "../photo/photoUploader";
-import axios from "axios";
 
 class StatementPage extends Component {
 
