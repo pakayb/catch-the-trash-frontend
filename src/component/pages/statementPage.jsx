@@ -12,7 +12,7 @@ class StatementPage extends Component {
                         <div className="col-md-4">
                             <div className="panel panel-default">
                                 <div className="panel-body text-center">
-                                    <div className="card" style={{height: "350px", width: "350px"}}>
+                                    <div className="card" style={{height: "5%", width: "100%"}}>
                                         <LeafMap/>
                                     </div>
                                 </div>
