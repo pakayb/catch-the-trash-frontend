@@ -1,68 +1,62 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import axios from "axios";
 
-
 class PhotoUploader extends Component {
+  state = {
+    ariaValue: 0,
+  };
 
-    state = {
-        selectedFiles: null,
-        imgUris: "",
-        ariaValue: 0,
-        note: ""
+  noteOnChange = (event) => {
+    this.props.noteHandler(event.target.value);
+    this.setState({ note: event.target.value });
+  };
+
+  fileSelectedHandler = (event) => {
+    var files = [];
+    for (var i = 0; i < event.target.files.length; i++) {
+      files.push(event.target.files[i]);
     }
+    this.props.fileHandler(files);
+  };
 
-    noteOnChange = event => {
-        this.setState({note: event.target.value})
-    };
-
-    fileSelectedHandler = event => {
-        this.setState({selectedFiles: event.target.files[0]})
-    };
-
-    fileUploadHandler = async () => {
-        const fd = new FormData();
-        fd.append("files", this.state.selectedFiles)
-        await axios.post("https://localhost:5001/api/ImageUpload",fd
-           , {
-                onUploadProgress: progressEvent => {
-                    this.setState({ariaValue: Math.round(progressEvent.loaded / progressEvent.total * 100)})
-                }
-            }
-        ).then(resp => {
-            console.log(resp);
-        })
-    };
-
-    sendNote = () => {
-        axios.post("https://localhost:5001/api/SaveNote", {note: this.state.note})
-            .then(resp => {console.log(resp)})
-            .catch(e => { console.log(e.message)});
-    }
-
-    render() {
-        return (
-            <div>
-                <form>
-                    <div className="form-group">
-                        <label htmlFor="exampleFormControlFile1">Képek kiválasztása</label>
-                        <input type="file" className="form-control-file" id="exampleFormControlFile1" multiple
-                               onChange={this.fileSelectedHandler}/>
-                        <button className="btn btn-dark" onClick={this.fileUploadHandler}>Képek feltöltése</button>
-                    </div>
-                    <div className="progress">
-                        <div className="progress-bar bg-success" role="progressbar"
-                             style={{width: this.state.ariaValue + "%"}}
-                             aria-valuenow={this.state.ariaValue} aria-valuemin="0" aria-valuemax="100"/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="exampleFormControlTextarea1">Megjegyzés</label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="10" onChange={this.noteOnChange} value={this.state.note}/>
-                        <button className="btn btn-dark" onClick={this.sendNote}>Bejelentés elküldése</button>
-                    </div>
-                </form>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <form>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlFile1">Képek kiválasztása</label>
+            <input
+              type="file"
+              className="form-control-file"
+              id="exampleFormControlFile1"
+              multiple
+              onChange={this.fileSelectedHandler}
+            />
+          </div>
+          <div className="progress">
+            <div
+              className="progress-bar bg-success"
+              role="progressbar"
+              style={{ width: this.state.ariaValue + "%" }}
+              aria-valuenow={this.state.ariaValue}
+              aria-valuemin="0"
+              aria-valuemax="100"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlTextarea1">Megjegyzés</label>
+            <textarea
+              className="form-control"
+              id="exampleFormControlTextarea1"
+              rows="10"
+              onChange={this.noteOnChange}
+              value={this.props.note}
+            />
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default PhotoUploader;
