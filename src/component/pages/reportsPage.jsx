@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
+import Avatar from "@material-ui/core/Avatar";
 import axios from "axios";
 
 const useStyles = makeStyles({
@@ -32,6 +33,7 @@ export default function SimpleTable() {
 
   const getData = async () => {
     await axios.get("https://localhost:5001/api/Reports").then((resp) => {
+      console.log(resp.data);
       setRows(resp.data);
     });
   };
@@ -42,6 +44,21 @@ export default function SimpleTable() {
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
+  const createAvatars = function (images) {
+    const src = "http://127.0.0.1:8887/";
+    if (images === []) {
+      return "no picture";
+    }
+    return images.map((image) => {
+      return (
+        <Avatar
+          alt={image.imgaeName}
+          src={src.concat(image.imageName)}
+        ></Avatar>
+      );
+    });
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -70,7 +87,7 @@ export default function SimpleTable() {
                 <TableCell align="right">{row.longitude}</TableCell>
                 <TableCell align="right">{row.latitude}</TableCell>
                 <TableCell align="right">{row.comment}</TableCell>
-                <TableCell align="right">{row.images}</TableCell>
+                <TableCell align="right">{createAvatars(row.images)}</TableCell>
               </TableRow>
             ))}
           {emptyRows > 0 && (
