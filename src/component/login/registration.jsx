@@ -22,7 +22,7 @@ class Registration extends Component {
 
   registration = () => {
     axios
-      .post("https://localhost:44314/api/Users", {
+      .post("https://localhost:5001/api/Users", {
         UserName: this.state.username,
         Password: this.state.password,
         Email: this.state.email,
