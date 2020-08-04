@@ -46,7 +46,9 @@ class StatementPage extends Component {
     });
     await axios
       .post("https://localhost:5001/api/ImageUpload", fd)
-      .then((resp) => {});
+      .then((resp) => {
+        alert("Report uploaded");
+      });
   };
 
   render() {
